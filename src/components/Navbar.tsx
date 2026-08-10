@@ -41,159 +41,190 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <motion.header
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-4 inset-x-0 z-[999] flex justify-center items-center pointer-events-none transition-all duration-300 ${
-        isScrolled ? 'scale-[0.98]' : 'scale-100'
-      }`}
-    >
-      <nav
-        className={`pointer-events-auto flex items-center gap-2 sm:gap-3 px-3.5 sm:px-4 py-2 glass-card rounded-full shadow-glass transition-all duration-300 whitespace-nowrap max-w-[95vw] ${
-          isScrolled ? 'bg-white/90 dark:bg-[#0B0F19]/90 shadow-lg border-primary/20' : 'bg-white/80 dark:bg-[#0B0F19]/80'
-        }`}
-      >
-        {/* Brand Avatar & Name */}
-        <a
-          href="#hero"
-          className="flex items-center gap-2.5 px-2 py-1 text-slate-900 dark:text-white font-heading font-extrabold text-sm tracking-tight shrink-0 whitespace-nowrap group"
-        >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center overflow-hidden border border-white/20 text-white text-xs shadow-soft shrink-0 group-hover:scale-105 transition-transform">
-            {avatarSrc ? (
-              <img src={avatarSrc} alt={USER_INFO.name} className="w-full h-full object-cover object-top" />
-            ) : (
-              <span>RR</span>
-            )}
-          </div>
-          <span className="hidden sm:inline font-heading font-extrabold text-sm whitespace-nowrap leading-none">
-            {USER_INFO.name}
-          </span>
-        </a>
-
-        {/* Desktop Links with Framer Motion Sliding Pill Background */}
-        <ul className="hidden md:flex items-center gap-1 list-none relative shrink-0">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const isActive = activeSection === link.id;
-            return (
-              <li key={link.id} className="relative">
-                <a
-                  href={`#${link.id}`}
-                  className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
-                    isActive
-                      ? 'text-primary dark:text-white font-semibold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span>{link.label}</span>
-                </a>
-
-                {/* Animated Pill Background */}
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavPill"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    className="absolute inset-0 bg-primary/10 dark:bg-white/15 rounded-full border border-primary/20 dark:border-white/20 z-0"
-                  />
-                )}
-              </li>
-            );
-          })}
-
-          {/* Dedicated Resume Download Button */}
-          <li>
-            <a
-              href={USER_INFO.resumeFile}
-              download="Rubesh_R_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary dark:text-accent bg-indigo-50 dark:bg-white/10 hover:bg-indigo-100 dark:hover:bg-white/20 rounded-full border border-indigo-200/80 dark:border-white/10 transition-all shadow-sm ml-1 whitespace-nowrap"
-              title="Download Rubesh R's Resume"
-            >
-              <Download className="w-3.5 h-3.5 shrink-0" />
-              <span>Resume</span>
-            </a>
-          </li>
-        </ul>
-
-        {/* Right Tools Container */}
-        <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200/80 dark:border-white/10 shrink-0">
-          {/* Command Palette Button */}
-          <button
-            onClick={onOpenCommandPalette}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-code text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all whitespace-nowrap"
-            title="Open Command Palette (Ctrl + K)"
-          >
-            <Command className="w-3.5 h-3.5 shrink-0" />
-            <span className="hidden lg:inline">⌘K</span>
-          </button>
-
-          {/* Theme Toggle Button */}
-          <button
-            onClick={onToggleTheme}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-accent bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all shrink-0"
-            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            aria-label="Toggle Theme"
-          >
-            {isDark ? <Sun className="w-4 h-4 text-amber-400 shrink-0" /> : <Moon className="w-4 h-4 text-indigo-600 shrink-0" />}
-          </button>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-slate-700 dark:text-slate-200 shrink-0"
-            aria-label="Toggle Menu"
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Drawer */}
+    <>
+      {/* Mobile Backdrop Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: -10, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, scale: 0.92, y: -10, filter: 'blur(8px)' }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden mt-3 p-4 bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-2xl border border-slate-200 dark:border-white/10 rounded-3xl flex flex-col gap-1.5 shadow-2xl pointer-events-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileOpen(false)}
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[998] md:hidden pointer-events-auto"
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.header
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-3 sm:top-4 inset-x-0 z-[999] flex flex-col items-center px-3 sm:px-4 pointer-events-none transition-all duration-300 ${
+          isScrolled ? 'scale-[0.98]' : 'scale-100'
+        }`}
+      >
+        <nav
+          className={`pointer-events-auto flex items-center justify-between sm:justify-center gap-2 sm:gap-3 px-3.5 sm:px-4 py-2 glass-card rounded-full shadow-glass transition-all duration-300 whitespace-nowrap w-[94vw] max-w-5xl md:w-auto ${
+            isScrolled ? 'bg-white/95 dark:bg-[#0B0F19]/95 shadow-lg border-primary/20' : 'bg-white/85 dark:bg-[#0B0F19]/85'
+          }`}
+        >
+          {/* Brand Avatar & Name */}
+          <a
+            href="#hero"
+            className="flex items-center gap-2 px-1.5 sm:px-2 py-1 text-slate-900 dark:text-white font-heading font-extrabold text-sm tracking-tight shrink-0 whitespace-nowrap group"
           >
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center overflow-hidden border border-white/20 text-white text-xs shadow-soft shrink-0 group-hover:scale-105 transition-transform">
+              {avatarSrc ? (
+                <img src={avatarSrc} alt={USER_INFO.name} className="w-full h-full object-cover object-top" />
+              ) : (
+                <span>RR</span>
+              )}
+            </div>
+            <span className="font-heading font-extrabold text-xs sm:text-sm whitespace-nowrap leading-none">
+              {USER_INFO.name}
+            </span>
+          </a>
+
+          {/* Desktop Links with Framer Motion Sliding Pill Background */}
+          <ul className="hidden md:flex items-center gap-1 list-none relative shrink-0">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = activeSection === link.id;
               return (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-2xl transition-all ${
-                    isActive
-                      ? 'bg-primary/10 text-primary dark:text-accent font-semibold'
-                      : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10'
-                  }`}
-                >
-                  <Icon className="w-4 h-4 text-primary shrink-0" />
-                  <span>{link.label}</span>
-                </a>
+                <li key={link.id} className="relative">
+                  <a
+                    href={`#${link.id}`}
+                    className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
+                      isActive
+                        ? 'text-primary dark:text-white font-semibold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                    <span>{link.label}</span>
+                  </a>
+
+                  {/* Animated Pill Background */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavPill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 bg-primary/10 dark:bg-white/15 rounded-full border border-primary/20 dark:border-white/20 z-0"
+                    />
+                  )}
+                </li>
               );
             })}
-            <a
-              href={USER_INFO.resumeFile}
-              download="Rubesh_R_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-primary dark:text-accent bg-indigo-50 dark:bg-white/10 rounded-2xl transition-all mt-1"
+
+            {/* Dedicated Resume Download Button */}
+            <li>
+              <a
+                href={USER_INFO.resumeFile}
+                download="Rubesh_R_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary dark:text-accent bg-indigo-50 dark:bg-white/10 hover:bg-indigo-100 dark:hover:bg-white/20 rounded-full border border-indigo-200/80 dark:border-white/10 transition-all shadow-sm ml-1 whitespace-nowrap"
+                title="Download Rubesh R's Resume"
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span>Resume</span>
+              </a>
+            </li>
+          </ul>
+
+          {/* Right Tools Container */}
+          <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200/80 dark:border-white/10 shrink-0">
+            {/* Command Palette Button */}
+            <button
+              onClick={onOpenCommandPalette}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-code text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all whitespace-nowrap"
+              title="Open Command Palette (Ctrl + K)"
             >
-              <Download className="w-4 h-4 shrink-0" />
-              <span>Download Resume PDF</span>
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+              <Command className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden lg:inline">⌘K</span>
+            </button>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={onToggleTheme}
+              className="p-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-accent bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all shrink-0"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle Theme"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400 shrink-0" /> : <Moon className="w-4 h-4 text-indigo-600 shrink-0" />}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 text-slate-700 dark:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors shrink-0"
+              aria-label="Toggle Menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5 text-primary dark:text-accent" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Drawer */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -10, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.95, y: -10, filter: 'blur(8px)' }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="md:hidden mt-2.5 p-3.5 bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-2xl border border-slate-200 dark:border-white/10 rounded-3xl flex flex-col gap-1 shadow-2xl pointer-events-auto w-[94vw] max-w-sm"
+            >
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = activeSection === link.id;
+                return (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-2xl transition-all ${
+                      isActive
+                        ? 'bg-primary/10 text-primary dark:text-accent font-semibold border border-primary/20 dark:border-accent/20'
+                        : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-primary dark:text-accent' : 'text-slate-500 dark:text-slate-400'}`} />
+                    <span>{link.label}</span>
+                  </a>
+                );
+              })}
+
+              <div className="h-px bg-slate-200 dark:bg-white/10 my-1" />
+
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  onOpenCommandPalette();
+                }}
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 rounded-2xl transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <Command className="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" />
+                  <span>Command Palette</span>
+                </div>
+                <span className="text-[10px] font-code px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-400">⌘K</span>
+              </button>
+
+              <a
+                href={USER_INFO.resumeFile}
+                download="Rubesh_R_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-primary to-secondary rounded-2xl shadow-soft transition-all mt-1"
+              >
+                <Download className="w-4 h-4 shrink-0" />
+                <span>Download Resume PDF</span>
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
   );
 };

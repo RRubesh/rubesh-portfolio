@@ -135,63 +135,63 @@ export const Certificates: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
+              <div className="p-4 sm:p-6 border-b border-slate-200 dark:border-white/10 flex items-start justify-between gap-3">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-code text-primary dark:text-accent mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Official Certificate
+                  <div className="flex items-center gap-2 text-[11px] sm:text-xs font-code text-primary dark:text-accent mb-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Official Certificate
                   </div>
-                  <h3 className="text-xl font-heading font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-base sm:text-xl font-heading font-bold text-slate-900 dark:text-white leading-tight">
                     {selectedCert.title}
                   </h3>
-                  <div className="text-xs text-slate-500 font-code mt-0.5">
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-code mt-1">
                     Issued by <span className="font-semibold text-slate-800 dark:text-slate-200">{selectedCert.issuer}</span> on {selectedCert.issueDate}
                   </div>
                 </div>
 
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="p-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors"
+                  className="p-1.5 sm:p-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors shrink-0"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
               {/* Certificate Image View */}
-              <div className="p-6 max-h-[70vh] overflow-y-auto flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+              <div className="p-3 sm:p-6 max-h-[60vh] sm:max-h-[70vh] overflow-y-auto flex items-center justify-center bg-slate-50 dark:bg-slate-950">
                 <img
                   src={selectedCert.image}
                   alt={selectedCert.title}
-                  className="max-w-full max-h-[60vh] object-contain rounded-xl shadow-lg border border-slate-200 dark:border-white/10"
+                  className="max-w-full max-h-[50vh] sm:max-h-[60vh] object-contain rounded-xl shadow-lg border border-slate-200 dark:border-white/10"
                 />
               </div>
 
               {/* Modal Footer */}
-              <div className="p-6 border-t border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="p-4 sm:p-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
                 {selectedCert.credentialId ? (
-                  <div className="font-code text-xs text-slate-600 dark:text-slate-300">
+                  <div className="font-code text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 truncate">
                     <span className="text-slate-400">Credential ID:</span> <span className="font-mono font-semibold text-primary dark:text-accent">{selectedCert.credentialId}</span>
                   </div>
                 ) : (
-                  <div className="font-code text-xs text-slate-600 dark:text-slate-300">
+                  <div className="font-code text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
                     Verified Credential by {selectedCert.issuer}
                   </div>
                 )}
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 justify-end">
                   {selectedCert.verifyUrl && (
                     <a
                       href={selectedCert.verifyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 bg-primary text-white text-xs font-semibold rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-soft"
+                      className="px-3.5 py-2 bg-primary text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 hover:bg-primary/90 transition-colors shadow-soft"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" /> Verify Credential
+                      <ExternalLink className="w-3.5 h-3.5" /> Verify
                     </a>
                   )}
 
                   <button
                     onClick={() => setSelectedCert(null)}
-                    className="px-4 py-2 glass-card text-slate-800 dark:text-white text-xs font-semibold rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+                    className="px-3.5 py-2 glass-card text-slate-800 dark:text-white text-xs font-semibold rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
                   >
                     Close Preview
                   </button>
