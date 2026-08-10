@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rubesh R | Full-Stack Developer & Penetration Tester</title>
+  <meta name="description" content="Portfolio of Rubesh R - Full-Stack Developer & Penetration Tester. Building intelligent AI systems, secure platforms, and modern full-stack applications.">
+  <meta name="keywords" content="Rubesh R, Full Stack Developer, Penetration Tester, Penetration Testing, AI Bug Hunter, GitPilot CLI">
+  <meta name="author" content="Rubesh R">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Rubesh R | Full-Stack Developer & Penetration Tester">
+  <meta property="og:description" content="Building intelligent AI systems, secure cybersecurity platforms, and modern full-stack applications.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Outfit, Space Grotesk, Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN Engine -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Devicon CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bgLight: '#F8FAFC',
+            bgDark: '#0B0F19',
+            cardLight: 'rgba(255, 255, 255, 0.72)',
+            cardDark: 'rgba(17, 24, 39, 0.75)',
+            primary: '#4F46E5',
+            secondary: '#7C3AED',
+            accent: '#06B6D4',
+            textPrimaryLight: '#111827',
+            textPrimaryDark: '#F9FAFB',
+            textSecondaryLight: '#64748B',
+            textSecondaryDark: '#9CA3AF',
+            borderLight: 'rgba(148, 163, 184, 0.25)',
+            borderDark: 'rgba(255, 255, 255, 0.1)',
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['Space Grotesk', 'sans-serif'],
+            code: ['Fira Code', 'monospace'],
+          },
+          borderRadius: {
+            '3xl': '1.5rem',
+            '4xl': '2rem',
+          },
+          boxShadow: {
+            soft: '0 10px 30px -10px rgba(79, 70, 229, 0.08)',
+            glass: '0 8px 32px 0 rgba(79, 70, 229, 0.08)',
+            glowPrimary: '0 0 35px rgba(79, 70, 229, 0.25)',
+            glowSecondary: '0 0 35px rgba(124, 58, 237, 0.25)',
+            glowAccent: '0 0 35px rgba(6, 182, 212, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    ::selection {
+      background: #4F46E5;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body class="bg-bgLight dark:bg-bgDark text-[#111827] dark:text-[#F9FAFB] font-body transition-colors duration-300 antialiased selection:bg-primary selection:text-white">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
