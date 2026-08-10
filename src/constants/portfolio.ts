@@ -1,11 +1,11 @@
-import gitpilotTerminalImage from 'C:/Users/91904/.gemini/antigravity-ide/brain/d27fdabb-705e-4342-9e4d-2b4b4f797c49/media__1786195528289.png';
-import aiBugHunterImage from 'C:/Users/91904/.gemini/antigravity-ide/brain/d27fdabb-705e-4342-9e4d-2b4b4f797c49/media__1786196279352.jpg';
+const gitpilotTerminalImage = '/images/gitpilot-terminal.png';
+const aiBugHunterImage = '/images/ai-bug-hunter.jpg';
 
-import certEthicalHacking from 'C:/Users/91904/.gemini/antigravity-ide/brain/16736c99-8b14-48ae-b0ff-ebb3ff41b14b/media__1786266655749.jpg';
-import certSQLOracle from 'C:/Users/91904/.gemini/antigravity-ide/brain/16736c99-8b14-48ae-b0ff-ebb3ff41b14b/media__1786266671729.png';
-import certPythonProjects from 'C:/Users/91904/.gemini/antigravity-ide/brain/16736c99-8b14-48ae-b0ff-ebb3ff41b14b/media__1786266681689.png';
-import certPythonFundamentals from 'C:/Users/91904/.gemini/antigravity-ide/brain/16736c99-8b14-48ae-b0ff-ebb3ff41b14b/media__1786266690663.png';
-import certPythonStrings from 'C:/Users/91904/.gemini/antigravity-ide/brain/16736c99-8b14-48ae-b0ff-ebb3ff41b14b/media__1786266699204.png';
+const certEthicalHacking = '/images/cert-ethical-hacking.jpg';
+const certSQLOracle = '/images/cert-sql-oracle.png';
+const certPythonProjects = '/images/cert-python-projects.png';
+const certPythonFundamentals = '/images/cert-python-fundamentals.png';
+const certPythonStrings = '/images/cert-python-strings.png';
 
 export interface ProjectItem {
   id: string;
