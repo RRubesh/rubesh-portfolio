@@ -224,7 +224,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </a>
             </motion.div>
           )}
-        </AnimatePresence>
       </motion.header>
+    </>
   );
 };

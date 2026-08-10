@@ -137,6 +137,13 @@ export const Hero: React.FC = () => {
             </div>
           </MagneticButton>
 
+          <MagneticButton href="#contact" strength={8}>
+            <div className="inline-flex items-center justify-center gap-2 px-6 py-3.5 glass-card text-slate-800 dark:text-white font-semibold text-sm rounded-2xl border border-secondary/30 hover:border-secondary transition-all w-full sm:w-auto">
+              <Send className="w-4 h-4 text-secondary" />
+              <span>Contact</span>
+            </div>
+          </MagneticButton>
+
           <div className="flex items-center gap-3 justify-center sm:justify-start">
             <MagneticButton href={USER_INFO.github} target="_blank" rel="noopener noreferrer" strength={8}>
               <div className="p-3.5 glass-card text-slate-700 dark:text-slate-200 rounded-2xl hover:text-primary dark:hover:text-accent transition-all shadow-soft">
@@ -150,14 +157,6 @@ export const Hero: React.FC = () => {
               </div>
             </MagneticButton>
           </div>
-        </motion.div>
-
-          <MagneticButton href="#contact" strength={8}>
-            <div className="inline-flex items-center gap-2 px-6 py-3.5 glass-card text-slate-800 dark:text-white font-semibold text-sm rounded-2xl border border-secondary/30 hover:border-secondary transition-all">
-              <Send className="w-4 h-4 text-secondary" />
-              <span>Contact</span>
-            </div>
-          </MagneticButton>
         </motion.div>
       </motion.div>
 
