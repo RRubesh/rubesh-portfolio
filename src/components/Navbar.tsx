@@ -64,21 +64,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         }`}
       >
         <nav
-          className={`pointer-events-auto flex items-center justify-between sm:justify-center gap-2 sm:gap-3 px-3.5 sm:px-4 py-2 glass-card rounded-full shadow-glass transition-all duration-300 whitespace-nowrap w-[94vw] max-w-5xl md:w-auto ${
+          className={`pointer-events-auto flex items-center justify-between sm:justify-center gap-1.5 sm:gap-2.5 lg:gap-3 px-4 sm:px-6 py-2 glass-card rounded-full shadow-glass transition-all duration-300 whitespace-nowrap w-[96vw] max-w-6xl md:w-auto overflow-hidden ${
             isScrolled ? 'bg-white/95 dark:bg-[#0B0F19]/95 shadow-lg border-primary/20' : 'bg-white/85 dark:bg-[#0B0F19]/85'
           }`}
         >
           {/* Brand Avatar & Name */}
           <a
             href="#hero"
-            className="flex items-center gap-2 px-1.5 sm:px-2 py-1 text-slate-900 dark:text-white font-heading font-extrabold text-sm tracking-tight shrink-0 whitespace-nowrap group"
+            className="flex items-center gap-2 py-0.5 text-slate-900 dark:text-white font-heading font-extrabold text-sm tracking-tight shrink-0 whitespace-nowrap group"
           >
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center overflow-hidden border border-white/20 text-white text-xs shadow-soft shrink-0 group-hover:scale-105 transition-transform">
-              {avatarSrc ? (
-                <img src={avatarSrc} alt={USER_INFO.name} className="w-full h-full object-cover object-top" />
-              ) : (
-                <span>RR</span>
-              )}
+              <img
+                src={avatarSrc || USER_INFO.profileImage}
+                alt={USER_INFO.name}
+                className="w-full h-full object-cover object-top"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = USER_INFO.profileImage;
+                }}
+              />
             </div>
             <span className="font-heading font-extrabold text-xs sm:text-sm whitespace-nowrap leading-none">
               {USER_INFO.name}
@@ -86,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Links with Framer Motion Sliding Pill Background */}
-          <ul className="hidden md:flex items-center gap-1 list-none relative shrink-0">
+          <ul className="hidden md:flex items-center gap-0.5 lg:gap-1 list-none relative shrink-0">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = activeSection === link.id;
@@ -94,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <li key={link.id} className="relative">
                   <a
                     href={`#${link.id}`}
-                    className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
+                    className={`relative z-10 flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
                       isActive
                         ? 'text-primary dark:text-white font-semibold'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -137,11 +140,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Command Palette Button */}
             <button
               onClick={onOpenCommandPalette}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-code text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all whitespace-nowrap"
+              className="flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full border border-slate-200 dark:border-white/10 transition-all whitespace-nowrap shrink-0"
               title="Open Command Palette (Ctrl + K)"
             >
               <Command className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden lg:inline">⌘K</span>
+              <span className="hidden lg:inline text-[11px] font-semibold">K</span>
             </button>
 
             {/* Theme Toggle Button */}

@@ -68,6 +68,7 @@ export const USER_INFO = {
   uppercaseName: "RUBESH R",
   title: "Full-Stack Developer & Penetration Tester",
   phone: "+91-9042847832",
+  profileImage: "/images/rubesh-profile.png",
   roles: [
     "Full-Stack Developer",
     "Penetration Testing Specialist",

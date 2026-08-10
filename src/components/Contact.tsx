@@ -14,11 +14,22 @@ export const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const subject = encodeURIComponent(`Portfolio Message from ${formState.name}`);
+    const body = encodeURIComponent(
+      `Hi Rubesh,\n\nYou received a new message from your portfolio website:\n\nName: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}\n\n---\nSent via Rubesh R Portfolio Contact Form`
+    );
+
+    const mailtoUrl = `mailto:${USER_INFO.email}?subject=${subject}&body=${body}`;
+
+    // Open default mail client / Gmail
+    window.location.href = mailtoUrl;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
       setFormState({ name: '', email: '', message: '' });
-    }, 1200);
+    }, 600);
   };
 
   return (

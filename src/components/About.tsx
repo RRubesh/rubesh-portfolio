@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Building2, MapPin, Cpu, Camera, ShieldCheck, UserCheck } from 'lucide-react';
+import { GraduationCap, Building2, MapPin, Cpu, ShieldCheck, UserCheck } from 'lucide-react';
 import { USER_INFO } from '../constants/portfolio';
 import { fadeInUp, staggerContainer } from '../animations/variants';
 import { TiltCard } from './TiltCard';
 
 interface AboutProps {
-  avatarSrc: string | null;
-  onAvatarUpdate: (newSrc: string) => void;
+  avatarSrc?: string | null;
+  onAvatarUpdate?: (newSrc: string) => void;
 }
 
 const FLOATING_SYMBOLS = [
@@ -18,21 +18,7 @@ const FLOATING_SYMBOLS = [
   { text: 'API', bottom: '10%', right: '35%', delay: 3 },
 ];
 
-export const About: React.FC<AboutProps> = ({ avatarSrc, onAvatarUpdate }) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        const res = evt.target?.result as string;
-        if (res) onAvatarUpdate(res);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
+export const About: React.FC<AboutProps> = ({ avatarSrc }) => {
   return (
     <section id="about" className="relative py-28 max-w-7xl mx-auto px-6 z-10">
       <motion.div
@@ -90,46 +76,22 @@ export const About: React.FC<AboutProps> = ({ avatarSrc, onAvatarUpdate }) => {
             {/* Profile Photo Glass Card */}
             <TiltCard maxRotation={4} className="h-full min-h-[440px]">
               <div className="relative h-full p-3 rounded-3xl glass-card flex flex-col group overflow-hidden">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
-
                 <div className="relative w-full h-full rounded-2xl overflow-hidden flex-grow bg-slate-100 dark:bg-slate-900">
-                  {avatarSrc ? (
-                    <img
-                      src={avatarSrc}
-                      alt={USER_INFO.name}
-                      className="w-full h-full object-cover object-[center_12%] group-hover:scale-105 transition-transform duration-700 filter contrast-[1.03]"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-indigo-50/80 via-white to-violet-50/80 dark:from-indigo-950/40 dark:to-violet-950/40 border border-dashed border-primary/30 rounded-2xl flex flex-col items-center justify-center p-6 gap-3 text-center">
-                      <ShieldCheck className="w-16 h-16 text-primary dark:text-accent" />
-                      <span className="font-code text-sm font-semibold text-slate-900 dark:text-white">{USER_INFO.name}</span>
-                      <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="mt-2 px-4 py-2 bg-primary text-white text-xs font-semibold rounded-full shadow-soft hover:scale-105 transition-all flex items-center gap-2"
-                      >
-                        <Camera className="w-3.5 h-3.5" /> Select Photo
-                      </button>
-                    </div>
-                  )}
+                  <img
+                    src={avatarSrc || USER_INFO.profileImage}
+                    alt={USER_INFO.name}
+                    className="w-full h-full object-cover object-[center_12%] group-hover:scale-105 transition-transform duration-700 filter contrast-[1.03]"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      (e.target as HTMLImageElement).src = USER_INFO.profileImage;
+                    }}
+                  />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
 
                   <div className="absolute bottom-4 left-4 right-4 p-4 bg-white/90 dark:bg-[#0B0F19]/90 backdrop-blur-md border border-slate-200/80 dark:border-white/15 rounded-2xl flex flex-col gap-1 shadow-lg">
                     <div className="flex items-center justify-between">
                       <span className="font-heading font-extrabold text-base text-slate-900 dark:text-white">{USER_INFO.name}</span>
-                      <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="text-xs text-primary dark:text-accent hover:bg-slate-100 dark:hover:bg-white/10 p-1.5 rounded-lg transition-all"
-                        title="Change Profile Photo"
-                      >
-                        <Camera className="w-4 h-4" />
-                      </button>
                     </div>
                     <span className="font-code text-xs text-primary dark:text-accent flex items-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5" /> Full-Stack Developer & Penetration Tester

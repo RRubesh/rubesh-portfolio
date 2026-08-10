@@ -17,11 +17,13 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
 
+import { USER_INFO } from './constants/portfolio';
+
 export const App: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
   const { isOpen: commandPaletteOpen, setIsOpen: setCommandPaletteOpen, toggle: toggleCommandPalette } = useCommandPalette();
   const [activeSection, setActiveSection] = useState('hero');
-  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
+  const [avatarSrc, setAvatarSrc] = useState<string>(USER_INFO.profileImage);
   const [introFinished, setIntroFinished] = useState(false);
 
   useEffect(() => {
