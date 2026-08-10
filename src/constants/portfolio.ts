@@ -69,6 +69,7 @@ export const USER_INFO = {
   title: "Full-Stack Developer & Penetration Tester",
   phone: "+91-9042847832",
   profileImage: "/images/rubesh-profile.png",
+  logoImage: "/images/rubesh-logo.jpg",
   roles: [
     "Full-Stack Developer",
     "Penetration Testing Specialist",
